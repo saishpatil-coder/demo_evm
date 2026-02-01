@@ -1,36 +1,32 @@
 import React from "react";
 import EVMHeader from "./EVMHeader";
-import CandidateCard from "./CandidateRow"; // Renamed for clarity
+import CandidateCard from "./CandidateRow";
 
-const EVMContainer = ({ constituency, candidates }) =>
+const EVMContainer = ({ title, constituency, candidates, cardBgColor = "#ffffff" }) =>
 {
     const styles = {
         container: {
-            backgroundColor: "#f3f4f6", // Light grey app background
-            minHeight: "100%",
+            backgroundColor:cardBgColor, // Keep main background neutral/grey
             padding: "20px 15px",
             fontFamily: "'Segoe UI', 'Mukta', sans-serif",
             maxWidth: "500px",
-            margin: "0 auto",
-            borderRadius: "20px", // Rounded app corners
+            margin: "0 auto 30px auto", // Added bottom margin for spacing between two EVMs
+            borderRadius: "20px",
             overflow: "hidden",
-            position: "relative",
+            border: "1px solid #e5e7eb",
         },
         listWrapper: {
             display: "flex",
             flexDirection: "column",
-            gap: "15px", // Space between cards
+            gap: "15px",
             marginTop: "20px",
-            paddingBottom: "20px",
         }
     };
 
     return (
         <section style={styles.container}>
-            {/* Modern Header */}
-            <EVMHeader title={constituency} />
+            <EVMHeader title={title} constituency={constituency} />
 
-            {/* List of Floating Cards */}
             <div style={styles.listWrapper}>
                 {candidates.map((c, index) => (
                     <CandidateCard
@@ -38,6 +34,7 @@ const EVMContainer = ({ constituency, candidates }) =>
                         index={index + 1}
                         name={c.name}
                         symbolImg={c.symbolImg}
+                        bgColor={cardBgColor} // 🟢 Pass the dynamic color here
                     />
                 ))}
             </div>
