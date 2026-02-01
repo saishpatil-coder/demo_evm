@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* DEFAULT: Mobile-first */
+body {
+  background: #ffffff;
+}
+
+/* App container */
+.mobile-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* DESKTOP ONLY */
+@media (min-width: 768px) {
+  body {
+    background: #3f3f46;
+    /* grey background */
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .mobile-container {
+    width: 390px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+}
