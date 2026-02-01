@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import beepSound from "../../assets/vote.mp3";
 import playErrorSound from "../../assets/error";
-
+import ReactGA from "react-ga4"; // Import at the top
 const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, isDummy }) =>
 {
     const [voted, setVoted] = useState(false);
@@ -12,6 +12,11 @@ const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, 
         audio.play();
     };
     const handleVote = () =>{
+        ReactGA.event({
+            category: "Election",
+            action: "Voted",
+            label: name, // Tracks WHICH candidate got the vote
+        });
         if(isDummy){
             alert("ही एक रिक्त जागा आहे. कृपया खरे उमेदवार निवडा.");
             playErrorSound();

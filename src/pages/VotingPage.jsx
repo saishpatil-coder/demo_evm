@@ -26,7 +26,9 @@ const VotingPage = () =>
       const snap = await getDoc(docRef);
       if (snap.exists()) {
         setData(snap.data());
+        console.log(snap.data())
       }
+
       setLoading(false);
     };
     fetchData();
@@ -86,8 +88,8 @@ const VotingPage = () =>
           partyIcon={data.partyIcon}
         />
         <InfoSection
-          tarikh="15 मार्च 2026"
-          vel="सकाळी 7 ते सायंकाळी 6"
+          tarikh={data.electionDate}
+          vel={data.electionTime}
         />
 
         {/* 3. Render an EVM for EACH Candidate */}
@@ -98,7 +100,7 @@ const VotingPage = () =>
               title={c.role || `Ballot Unit ${index + 1}`} // "Zilha Parishad" or "Ward 1"
               constituency={data.constituency}
               candidates={generateEVMRows(c, data.partyIcon)}
-              cardBgColor={index % 2 === 0 ? "#fff1f2" : "#eff6ff"} // Alternate colors
+              cardBgColor={index % 2 !== 0 ? "#eebec1" : "#eff6ff"} // Alternate colors
             />
           </div>
         ))}

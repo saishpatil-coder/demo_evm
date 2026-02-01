@@ -41,11 +41,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminPanel from "./pages/AdminPanel"; // Client uses this
 import VotingPage from "./pages/VotingPage"; // The link they share
+import AnalyticsTracker from "./components/AnalyticsTracker";
 
 function App()
 {
   return (
     <Router>
+      <AnalyticsTracker/>
       <Routes>
         {/* The Client logs in here to create new elections */}
         <Route path="/admin" element={<AdminPanel />} />

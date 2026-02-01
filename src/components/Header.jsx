@@ -1,11 +1,16 @@
 import React from "react";
-
+import ReactGA from "react-ga4"; // Import at the top
 const Header = ({ electionName, loc }) =>
 {
 
     // WhatsApp Share Logic
     const handleShare = () =>
     {
+        ReactGA.event({
+            category: "Engagement",
+            action: "Clicked Share",
+            label: "WhatsApp Header Button",
+        });
         const currentUrl = window.location.href;
         const message = `🗳 *डिजिटल मतदान चाचणी २०२६* 🗳\n\nमी मतदान केले आहे! तुम्ही कोणाला मत देणार? 🤔\n\nतुमचा पाठिंबा दर्शवण्यासाठी खालील लिंकवर क्लिक करा!\n\n🔗 ${currentUrl}`;
         const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
