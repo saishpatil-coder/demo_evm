@@ -117,7 +117,7 @@ const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, 
             justifyContent: "center",
             gap: "6px",
             transition: "background 0.3s ease",
-            minWidth: "70px",
+            minWidth: "60px",
         }
     };
 
