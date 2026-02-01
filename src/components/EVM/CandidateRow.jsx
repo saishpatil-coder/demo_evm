@@ -1,7 +1,26 @@
-import React from "react";
-
+import React, { useState } from "react";
+import beepSound from "../../assets/vote.mp3";
 const CandidateCard = ({ index, name, symbolImg, bgColor }) =>
 {
+    const [voted, setVoted] = useState(false);
+
+    const playSound = () =>
+    {
+        // 2. Create a new Audio object and play it
+        const audio = new Audio(beepSound);
+        audio.play();
+    };
+
+    const handleVote = () =>
+    {
+        if (!voted) {
+            playSound();    // 🔊 Play your MP3
+            setVoted(true); // 🔒 Lock the button
+
+            // Optional: Reset button after 3 seconds for demo
+            setTimeout(() => setVoted(false), 3000);
+        }
+    };
     const styles = {
         card: {
             display: "flex",
@@ -32,14 +51,12 @@ const CandidateCard = ({ index, name, symbolImg, bgColor }) =>
             width: "30px",
             height: "30px",
             borderRadius: "50%",
-            backgroundColor: "rgba(255,255,255,0.8)", // Semi-transparent white
             color: "#333",
             fontSize: "14px",
             fontWeight: "800",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
         },
         symbolWrapper: {
             width: "55px",
@@ -77,18 +94,19 @@ const CandidateCard = ({ index, name, symbolImg, bgColor }) =>
             fontWeight: "500",
         },
         voteButton: {
-            backgroundColor: "#2563eb",
+            backgroundColor: voted ? "#10b981" : "#2563eb",
             color: "#fff",
             border: "none",
             borderRadius: "50px",
             padding: "8px 20px",
             fontSize: "13px",
             fontWeight: "700",
-            cursor: "pointer",
-            boxShadow: "0 4px 10px rgba(37, 99, 235, 0.2)",
+            cursor: voted ? "default" : "pointer",
+            boxShadow: voted ? "none" : "0 4px 10px rgba(37, 99, 235, 0.2)",
             display: "flex",
             alignItems: "center",
             gap: "6px",
+            transition: "background 0.3s ease",
         }
     };
 
@@ -98,18 +116,19 @@ const CandidateCard = ({ index, name, symbolImg, bgColor }) =>
             <div style={styles.accentStrip}></div>
             {/* Serial */}
             <div style={styles.serialBadge}>{index}</div>
+            {/* Name */}
+            <div style={styles.infoCol}>
+                <div style={styles.nameText}>{name}</div>
+            </div>
             {/* Symbol */}
             <div style={styles.symbolWrapper}>
                 {symbolImg ? <img src={symbolImg} alt="symbol" style={styles.symbolImg} /> : <span>?</span>}
             </div>
-            {/* Name */}
-            <div style={styles.infoCol}>
-                <div style={styles.nameText}>{name}</div>
-                <div style={styles.subText}>उमेदवार</div>
-            </div>
             {/* Button */}
-            <button style={styles.voteButton}>
-                मत <span>👉</span>
+            <button
+            onClick={handleVote}
+            style={styles.voteButton}>
+                मत 
             </button>
         </div>
     );

@@ -20,14 +20,14 @@ function App()
       <EVMContainer
         title="पंचायत समिती निवडणूक"
         constituency="मिरज"
-        cardBgColor="#fff1f2"
+        cardBgColor="#f6cdd0"
         candidates={panchayatCandidates}
       />
 
       <EVMContainer
         title="जिल्हा परिषद निवडणूक"
         constituency="मिरज"
-        cardBgColor="#fff1f2"
+        cardBgColor="#cbdcf4"
         candidates={zilhaCandidates}
       />
 
