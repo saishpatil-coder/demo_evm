@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import beepSound from "../../assets/vote.mp3";
+import playErrorSound from "../../assets/error";
 
 const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, isDummy }) =>
 {
@@ -10,12 +11,14 @@ const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, 
         const audio = new Audio(beepSound);
         audio.play();
     };
-
-    const handleVote = () =>
-    {
+    const handleVote = () =>{
         if(isDummy){
-            return;
-        }
+            alert("ही एक रिक्त जागा आहे. कृपया खरे उमेदवार निवडा.");
+            playErrorSound();
+            setVoted(true);
+            setTimeout(() => setVoted(false), 3000);
+
+            return;        }
         if (!voted) {
             playSound();
             setVoted(true);
@@ -100,7 +103,7 @@ const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, 
             objectFit: "contain",
         },
         voteButton: {
-            backgroundColor: voted ? "#10b981" : "#2563eb",
+            backgroundColor: voted ? isDummy ? "#ff0000" : "#10b981" : "#2563eb",
             color: "#fff",
             border: "none",
             borderRadius: "50px",
