@@ -1,49 +1,39 @@
 import React, { useState } from "react";
 import beepSound from "../../assets/vote.mp3";
-const CandidateCard = ({ index, name, symbolImg, bgColor }) =>
+
+const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, isDummy }) =>
 {
     const [voted, setVoted] = useState(false);
 
     const playSound = () =>
     {
-        // 2. Create a new Audio object and play it
         const audio = new Audio(beepSound);
         audio.play();
     };
 
     const handleVote = () =>
     {
+        if(isDummy){
+            return;
+        }
         if (!voted) {
-            playSound();    // 🔊 Play your MP3
-            setVoted(true); // 🔒 Lock the button
-
-            // Optional: Reset button after 3 seconds for demo
+            playSound();
+            setVoted(true);
             setTimeout(() => setVoted(false), 3000);
         }
     };
+
     const styles = {
         card: {
             display: "flex",
             alignItems: "center",
-            // 🟢 Use the dynamic prop here (default to white if missing)
-            backgroundColor:  "#ffffff",
-            borderRadius: "16px",
-            padding: "12px 16px 12px 0",
-            // Add a subtle border to make the pastel color pop
-            border: "1px solid rgba(0,0,0,0.05)",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.05)",
+            backgroundColor: bgColor || "#ffffff",
+            padding: "15px 16px 15px 0",
             position: "relative",
-            overflow: "hidden",
-            transition: "transform 0.2s ease",
-        },
-        accentStrip: {
-            width: "6px",
-            height: "100%",
-            // Darker accent based on the pastel background
-            backgroundColor: "rgba(0,0,0,0.1)",
-            position: "absolute",
-            left: 0,
-            top: 0,
+            borderBottom: isLast ? "none" : "1px solid rgba(0,0,0,0.1)",
+            transition: "background 0.2s ease",
+            // If it's a dummy row, we can make it look slightly "faded" or just normal
+            opacity: isDummy ? 0.8 : 1,
         },
         serialBadge: {
             marginLeft: "16px",
@@ -57,78 +47,100 @@ const CandidateCard = ({ index, name, symbolImg, bgColor }) =>
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-        },
-        symbolWrapper: {
-            width: "55px",
-            height: "55px",
-            borderRadius: "12px",
-            backgroundColor: "#fff",
-            border: "1px solid rgba(0,0,0,0.1)",
-            padding: "5px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginRight: "15px",
-        },
-        symbolImg: {
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
+            backgroundColor: "rgba(255,255,255,0.5)",
+            flexShrink: 0,
         },
         infoCol: {
             flex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            paddingRight: "10px",
+            minHeight: "40px", // Maintains height even if text is empty
         },
         nameText: {
             fontSize: "16px",
             fontWeight: "700",
             color: "#1f2937",
-            lineHeight: "1.2",
-            marginBottom: "2px",
+            lineHeight: "1.45",
         },
-        subText: {
-            fontSize: "12px",
-            color: "#4b5563", // Slightly darker for contrast on colored bg
-            fontWeight: "500",
+        photoWrapper: {
+            width: "50px",
+            height: "50px",
+            borderRadius: "8px",
+            // 🟢 HIDDEN IF DUMMY
+            visibility: isDummy ? "hidden" : "visible",
+            overflow: "hidden",
+            marginRight: "10px",
+            border: isDummy ? "none" : "1px solid rgba(0,0,0,0.1)",
+            backgroundColor: isDummy ? "transparent" : "#f3f4f6",
+            flexShrink: 0,
+        },
+        photoImg: {
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+        },
+        symbolWrapper: {
+            width: "50px",
+            height: "50px",
+            borderRadius: "8px",
+            // 🟢 HIDDEN IF DUMMY
+            visibility: isDummy ? "hidden" : "visible",
+            padding: "5px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginRight: "15px",
+            flexShrink: 0,
+        },
+        symbolImg: {
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
         },
         voteButton: {
             backgroundColor: voted ? "#10b981" : "#2563eb",
             color: "#fff",
             border: "none",
             borderRadius: "50px",
-            padding: "8px 20px",
+            padding: "8px 16px",
             fontSize: "13px",
             fontWeight: "700",
             cursor: voted ? "default" : "pointer",
             boxShadow: voted ? "none" : "0 4px 10px rgba(37, 99, 235, 0.2)",
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             gap: "6px",
             transition: "background 0.3s ease",
+            minWidth: "70px",
         }
     };
 
     return (
         <div style={styles.card}>
-            {/* Strip */}
             <div style={styles.accentStrip}></div>
-            {/* Serial */}
             <div style={styles.serialBadge}>{index}</div>
-            {/* Name */}
+
             <div style={styles.infoCol}>
-                <div style={styles.nameText}>{name}</div>
+                {/* Render name only if NOT dummy */}
+                <div style={styles.nameText}>{!isDummy ? name : ""}</div>
             </div>
-            {/* Symbol */}
+
+            {/* Photo (Hidden if dummy via styles) */}
+            <div style={styles.photoWrapper}>
+                {!isDummy && candidateImg ? <img src={candidateImg} alt="candidate" style={styles.photoImg} /> : null}
+            </div>
+
+            {/* Symbol (Hidden if dummy via styles) */}
             <div style={styles.symbolWrapper}>
-                {symbolImg ? <img src={symbolImg} alt="symbol" style={styles.symbolImg} /> : <span>?</span>}
+                {!isDummy && symbolImg ? <img src={symbolImg} alt="symbol" style={styles.symbolImg} /> : null}
             </div>
-            {/* Button */}
-            <button
-            onClick={handleVote}
-            style={styles.voteButton}>
-                मत 
+
+            {/* Button always visible to simulate real EVM */}
+            <button onClick={handleVote} style={styles.voteButton}>
+                मत
             </button>
         </div>
     );
