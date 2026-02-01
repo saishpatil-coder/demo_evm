@@ -21,7 +21,7 @@ const EVMContainer = ({ title, constituency, candidates, cardBgColor = "#ffffff"
             marginTop: "15px",
             borderRadius: "16px", // Rounded corners for the whole table
             overflow: "hidden",
-            border: "1px solid rgba(0,0,0,0.1)",
+            border: "2px solid black",
             boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
             backgroundColor: "#fff", // Background for the wrapper
         },
@@ -31,10 +31,9 @@ const EVMContainer = ({ title, constituency, candidates, cardBgColor = "#ffffff"
             alignItems: "center",
             backgroundColor: "#e5e7eb", // Darker grey for header
             padding: "10px 16px 10px 0", // Matching padding of cards
-            borderBottom: "1px solid rgba(0,0,0,0.1)",
-            fontSize: "13px",
+            borderBottom: "2px solid #000000",            fontSize: "13px",
             fontWeight: "700",
-            color: "#4b5563",
+            color: "#000000",
         },
         // Column Matchers (Must match CandidateCard widths)
         colKr: {

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = () =>
+const Header = ({electionName,loc}) =>
 {
     // Define styles as a JavaScript object
     const styles = {
@@ -59,7 +59,7 @@ const Header = () =>
         <header style={styles.header}>
             {/* Catchy Top Badge for Year */}
             <div style={styles.topBadge}>
-                🗳️ जिल्हा परिषद निवडणूक 2026
+                {electionName ? electionName :"🗳️ जिल्हा परिषद निवडणूक 2026"}
             </div>
 
             {/* Main Title - Bigger and Bolder */}
@@ -71,7 +71,9 @@ const Header = () =>
             <div style={styles.locationContainer}>
                 <div style={styles.locationPill}>
                     <span>📍</span>
-                    <span>मिरज पंचायत समिती, सांगली</span>
+                    <span>{
+                        loc ? loc : "मिरज पंचायत समिती, सांगली"
+}</span>
                 </div>
             </div>
         </header>

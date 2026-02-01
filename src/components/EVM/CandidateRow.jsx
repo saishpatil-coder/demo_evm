@@ -83,6 +83,8 @@ const CandidateCard = ({ index, name, symbolImg, candidateImg, bgColor, isLast, 
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            objectPosition: "top", // Ensures face is seen
+
         },
         symbolWrapper: {
             width: "50px",

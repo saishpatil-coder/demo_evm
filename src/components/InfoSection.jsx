@@ -1,6 +1,6 @@
 import React from "react";
 
-const InfoSection = () =>
+const InfoSection = ({ tarikh, vel }) =>
 {
     const styles = {
         section: {
@@ -82,8 +82,7 @@ const InfoSection = () =>
                     <div style={{ ...styles.iconBox, ...styles.iconDate }}>📅</div>
                     <div style={styles.infoContent}>
                         <span style={styles.label}>मतदानाची तारीख</span>
-                        <span style={styles.value}>15 मार्च 2026</span>
-                    </div>
+                        <span style={styles.value}>{tarikh || "15 मार्च 2026"}</span>                    </div>
                 </div>
 
                 {/* Time Row */}
@@ -91,19 +90,8 @@ const InfoSection = () =>
                     <div style={{ ...styles.iconBox, ...styles.iconTime }}>⏰</div>
                     <div style={styles.infoContent}>
                         <span style={styles.label}>मतदानाची वेळ</span>
-                        <span style={styles.value}>सकाळी 7 ते सायंकाळी 6</span>
-                    </div>
+                        <span style={styles.value}>{vel || "सकाळी 7 ते सायंकाळी 6"}</span>                    </div>
                 </div>
-
-                {/* Location Row (No margin bottom on last item) */}
-                <div style={{ ...styles.row, marginBottom: 0 }}>
-                    <div style={{ ...styles.iconBox, ...styles.iconLoc }}>📍</div>
-                    <div style={styles.infoContent}>
-                        <span style={styles.label}>मतदान केंद्र</span>
-                        <span style={styles.value}>मिरज पंचायत समिती कार्यालय (प्रात्यक्षिक)</span>
-                    </div>
-                </div>
-
             </div>
         </section>
     );
