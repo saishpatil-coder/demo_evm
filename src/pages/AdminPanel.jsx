@@ -7,7 +7,16 @@ const AdminPanel = () =>
   // --- SECTION 1: ELECTION & PARTY INFO ---
   const [electionTitle, setElectionTitle] = useState("जिल्हा परिषद निवडणूक 2026");
   const [constituency, setConstituency] = useState("मिरज");
+
+  // 🟢 NEW: Date & Time Defaults
+  const [electionDate, setElectionDate] = useState("15 मार्च 2026");
+  const [electionTime, setElectionTime] = useState("सकाळी 7 ते सायंकाळी 6");
+
   const [partyName, setPartyName] = useState("भारतीय जनता पार्टी");
+
+  // 🟢 NEW: Symbol Text Name (Default: Kamal)
+  const [partySymbolName, setPartySymbolName] = useState("कमळ");
+
   const [partyIcon, setPartyIcon] = useState("");
 
   // --- SECTION 2: DYNAMIC CANDIDATES LIST ---
@@ -16,9 +25,9 @@ const AdminPanel = () =>
       id: Date.now(),
       name: "",
       photo: "",
-      role: "", // e.g. "Gat No. 24" or "Zilha Parishad"
-      totalRows: 5, // How many buttons on the EVM?
-      myPosition: 1 // Where is this candidate? (1, 2, 3...)
+      role: "", // e.g. "Gat No. 24"
+      totalRows: 5,
+      myPosition: 1
     }
   ]);
 
@@ -68,7 +77,7 @@ const AdminPanel = () =>
 
   const removeCandidateSlot = (id) =>
   {
-    if (candidates.length === 1) return; // Keep at least one
+    if (candidates.length === 1) return;
     setCandidates(candidates.filter(c => c.id !== id));
   };
 
@@ -85,9 +94,15 @@ const AdminPanel = () =>
       const payload = {
         title: electionTitle,
         constituency: constituency,
+
+        // 🟢 Include the new fields in database
+        electionDate: electionDate,
+        electionTime: electionTime,
+        partySymbolName: partySymbolName,
+
         partyName: partyName,
         partyIcon: partyIcon,
-        candidateList: candidates, // We save the raw config
+        candidateList: candidates,
         createdAt: new Date()
       };
 
@@ -123,10 +138,24 @@ const AdminPanel = () =>
       {/* 1. GLOBAL ELECTION INFO */}
       <div style={styles.section}>
         <div style={styles.header}>Step 1: Election Details</div>
+
         <div style={styles.inputGroup}>
           <label style={styles.label}>Election Title</label>
           <input style={styles.input} value={electionTitle} onChange={e => setElectionTitle(e.target.value)} />
         </div>
+
+        {/* 🟢 Date and Time Inputs */}
+        <div style={styles.row}>
+          <div style={{ ...styles.inputGroup, flex: 1 }}>
+            <label style={styles.label}>Date (तारीख)</label>
+            <input style={styles.input} value={electionDate} onChange={e => setElectionDate(e.target.value)} />
+          </div>
+          <div style={{ ...styles.inputGroup, flex: 1 }}>
+            <label style={styles.label}>Time (वेळ)</label>
+            <input style={styles.input} value={electionTime} onChange={e => setElectionTime(e.target.value)} />
+          </div>
+        </div>
+
         <div style={styles.row}>
           <div style={{ ...styles.inputGroup, flex: 1 }}>
             <label style={styles.label}>Constituency</label>
@@ -137,8 +166,20 @@ const AdminPanel = () =>
             <input style={styles.input} value={partyName} onChange={e => setPartyName(e.target.value)} />
           </div>
         </div>
+
+        {/* 🟢 Symbol Name Input */}
         <div style={styles.inputGroup}>
-          <label style={styles.label}>Party Symbol (Main Icon)</label>
+          <label style={styles.label}>Symbol Text Name (चिन्हाचे नाव)</label>
+          <input
+            style={styles.input}
+            value={partySymbolName}
+            onChange={e => setPartySymbolName(e.target.value)}
+            placeholder="e.g. कमळ, धनुष्यबाण"
+          />
+        </div>
+
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Party Symbol Image (Main Icon)</label>
           <input type="file" accept="image/*" onChange={e => processImage(e.target.files[0], setPartyIcon)} />
           {partyIcon && <span style={{ color: "green", fontSize: "12px" }}> ✓ Uploaded</span>}
         </div>

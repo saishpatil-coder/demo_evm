@@ -73,34 +73,42 @@ const VotingPage = () =>
 
       {/* 2. Hero Section - Needs to handle list of candidates */}
       {/* We pass the whole list so it can show all faces */}
-      <HeroSection
-        candidates={data.candidateList}
-        partyName={data.partyName}
-        partyIcon={data.partyIcon}
-      />
-      <InfoSection
-        tarikh="15 मार्च 2026"
-        vel="सकाळी 7 ते सायंकाळी 6"
-      />
+      <div className="container"
+      style={{
+        margin:"15px 8px",
+        marginBottom:"8px"
+      }}
+      >
+        <HeroSection
+          partySymbolName={data.partySymbolName}
+          candidates={data.candidateList}
+          partyName={data.partyName}
+          partyIcon={data.partyIcon}
+        />
+        <InfoSection
+          tarikh="15 मार्च 2026"
+          vel="सकाळी 7 ते सायंकाळी 6"
+        />
 
-      {/* 3. Render an EVM for EACH Candidate */}
-      {data.candidateList.map((c, index) => (
-        <div key={index}>
-          {/* We generate the rows specifically for this candidate's settings */}
-          <EVMContainer
-            title={c.role || `Ballot Unit ${index + 1}`} // "Zilha Parishad" or "Ward 1"
-            constituency={data.constituency}
-            candidates={generateEVMRows(c, data.partyIcon)}
-            cardBgColor={index % 2 === 0 ? "#fff1f2" : "#eff6ff"} // Alternate colors
-          />
-        </div>
-      ))}
+        {/* 3. Render an EVM for EACH Candidate */}
+        {data.candidateList.map((c, index) => (
+          <div key={index}>
+            {/* We generate the rows specifically for this candidate's settings */}
+            <EVMContainer
+              title={c.role || `Ballot Unit ${index + 1}`} // "Zilha Parishad" or "Ward 1"
+              constituency={data.constituency}
+              candidates={generateEVMRows(c, data.partyIcon)}
+              cardBgColor={index % 2 === 0 ? "#fff1f2" : "#eff6ff"} // Alternate colors
+            />
+          </div>
+        ))}
 
-      <WhatsAppShare
-        candidateName={mainCandidate?.name}
-        role={mainCandidate?.role}
-      />
-      <Footer />
+        <WhatsAppShare
+          candidateName={mainCandidate?.name}
+          role={mainCandidate?.role}
+        />
+        <Footer />
+      </div>
     </div>
   );
 };

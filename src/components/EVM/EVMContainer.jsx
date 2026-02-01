@@ -5,6 +5,15 @@ import CandidateCard from "./CandidateRow";
 const EVMContainer = ({ title, constituency, candidates, cardBgColor = "#ffffff" }) =>
 {
     const styles = {
+        mainTitle:{
+            height:"45px",
+            textAlign:"center",
+            fontSize:"20px",
+            backgroundColor:"#363636",
+            color:"white",
+            lineHeight:"40px",
+            fontWeight:"900"
+        },
         // Outer Shell
         container: {
             backgroundColor: "#f9fafb",
@@ -31,7 +40,7 @@ const EVMContainer = ({ title, constituency, candidates, cardBgColor = "#ffffff"
             alignItems: "center",
             backgroundColor: "#e5e7eb", // Darker grey for header
             padding: "10px 16px 10px 0", // Matching padding of cards
-            borderBottom: "2px solid #000000",            fontSize: "13px",
+            borderBottom: "2px solid #423f3f",            fontSize: "13px",
             fontWeight: "700",
             color: "#000000",
         },
@@ -67,6 +76,7 @@ const EVMContainer = ({ title, constituency, candidates, cardBgColor = "#ffffff"
             <EVMHeader title={title} constituency={constituency} />
 
             <div style={styles.listWrapper}>
+                <h1 style={styles.mainTitle}>{title}</h1>
 
                 {/* 🟢 The New Table Header */}
                 <div style={styles.headerRow}>

@@ -5,8 +5,6 @@ const Footer = () =>
     const styles = {
         // Container: Centered, limited width, nice spacing
         footerContainer: {
-            padding: "20px",
-            marginTop: "20px",
             display: "flex",
             justifyContent: "center",
             fontFamily: "'Segoe UI', 'Mukta', sans-serif",
@@ -15,7 +13,6 @@ const Footer = () =>
         alertBox: {
             backgroundColor: "#fffbeb", // Light Amber background
             border: "1px solid #fcd34d", // Golden/Amber border
-            borderRadius: "12px",
             padding: "12px 20px",
             display: "flex",
             alignItems: "center", // Vertically center content

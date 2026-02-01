@@ -4,7 +4,7 @@ const InfoSection = ({ tarikh, vel }) =>
 {
     const styles = {
         section: {
-            padding: "20px 15px",
+            padding: "20px 0px",
             backgroundColor: "#f3f4f6", // Light grey background to separate from Hero
             fontFamily: "'Segoe UI', 'Mukta', sans-serif",
         },

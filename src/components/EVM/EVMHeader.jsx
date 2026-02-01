@@ -37,7 +37,6 @@ const EVMHeader = ({ title }) =>
     return (
         <div style={styles.header}>
             <span style={styles.label}>निवडणूक 2026</span>
-            <h1 style={styles.mainTitle}>{title}</h1>
             <div style={styles.divider}></div>
         </div>
     );
